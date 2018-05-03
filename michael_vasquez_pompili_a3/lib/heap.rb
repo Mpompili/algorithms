@@ -3,7 +3,9 @@ class BinaryMinHeap
 
   def initialize(&prc)
     @store = Array.new
-    @prc = prc 
+    @prc = prc || Proc.new do |el1, el2|
+      (el1 <=> el2)
+    end 
   end
 
   def count
@@ -11,10 +13,14 @@ class BinaryMinHeap
   end
 
   def extract
-    p 'extract'
-    p count
-    @store[0], @store[count - 1] = @store[count - 1], @store[0] 
-    @store.pop
+   val = store[0]
+   if count > 1 
+    store[0] = store.pop
+    self.class.heapify_down(@store, 0, &prc)
+   else 
+    store.pop
+   end
+   val
   end
 
   def peek
@@ -22,11 +28,8 @@ class BinaryMinHeap
   end
 
   def push(val)
-    @store.push(val)
-    p 'push'
-    p count 
-    p count - 1 
-    self.class.heapify_up(@store, count - 1, count) if count > 1
+    @store << val
+    self.class.heapify_up(@store, self.count - 1, count, &prc) 
   end
 
   public
@@ -46,30 +49,25 @@ class BinaryMinHeap
       (el1 <=> el2)
     end 
 
-    while child_indices(len,parent_idx).any? { |idx| prc.call(array[parent_idx], array[idx]) == 1 } 
-      children = child_indices(len, parent_idx)
+    left, right = child_indices(len, parent_idx)
 
-      if children[0].nil? 
-        min = array[children[1]] 
-      elsif children[1].nil?
-        min = array[children[0]]
-      else 
-        min = prc.call(array[children[0]], array[children[1]]) == 1 ? children[1] : children[0]
-      end 
+    children = []
+    children << array[left] unless left.nil? 
+    children << array[right] unless right.nil? 
 
-      array[parent_idx], array[min] = array[min], array[parent_idx] 
-      parent_idx = min 
-    end
-
-    array
-
+    return array if children.all? {|child| prc.call(array[parent_idx], child) <= 0 }
+    swap_idx = children.length == 1 ? left : prc.call(children[0], children[1]) == -1 ? left : right 
+   
+    array[parent_idx], array[swap_idx] = array[swap_idx], array[parent_idx] 
+    heapify_down(array, swap_idx, len, &prc) 
   end
 
   def self.heapify_up(array, child_idx, len = array.length, &prc)
-    prc ||= Proc.new do |el1, el2|
-      (el1 <=> el2)
-    end 
-    while child_idx != 0 || prc.call(array[parent_index(child_idx)], array[child_idx])
+    prc ||= Proc.new { |el1, el2| (el1 <=> el2) }
+
+    return array if child_idx == 0 
+
+    while prc.call(array[parent_index(child_idx)], array[child_idx]) == 1
     # while child_idx != 0 || array[parent_index(child_idx)] > array[child_idx] 
       array[parent_index(child_idx)], array[child_idx] = array[child_idx], array[parent_index(child_idx)]
       child_idx = parent_index(child_idx)

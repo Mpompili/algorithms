@@ -52,16 +52,61 @@ class DynamicProgramming
   end
 
   def super_frog_hops(n, k)
+    super_frog_cache = super_frog_cache_builder(n, k)
+    super_frog_cache[k][n]
+  end
 
+  def super_frog_cache_builder(n, k)
+    cache = {}
+    (1..n).each do |col|
+      (1..k).each do |row|
+        cache[row] = [[[]]] unless cache[row]
+        result = []
+        if row == 1
+          result << cache[row][col - 1][0] + [1]
+        elsif row == col
+          result = cache[row - 1][col].dup
+          result << [row]
+        elsif col > row
+          (1...col).each do |column|
+            cache[row][column].each do |hop|
+              next if (col - column) > k
+              result << hop + [col - column]
+            end
+          end
+        elsif row > col
+          result = cache[col][col]
+        end
+        cache[row][col] = result
+      end
+    end
+    cache
   end
 
   def knapsack(weights, values, capacity)
-
+    knapsack_cache = knapsack_table(weights, values, capacity)
+    knapsack_cache[capacity][-1]
   end
 
   # Helper method for bottom-up implementation
   def knapsack_table(weights, values, capacity)
-
+    knapsack_cache = {0 => Array.new(weights.length, 0)}
+    (1..capacity).each do |c|
+      knapsack_cache[c] = c == weights[0] ? [values[0]] : [0]
+    end
+    (1...weights.length).each do |col|
+      (1..capacity).each do |c|
+        current_weight = weights[col]
+        current_value = values[col]
+        if c < current_weight
+          knapsack_cache[c][col] = knapsack_cache[c][col - 1]
+        else
+          new_value = knapsack_cache[c - current_weight][col - 1] + current_value
+          knapsack_cache[c][col] = [new_value, knapsack_cache[c][col - 1]].max
+        end
+      end
+    end
+    knapsack_cache
   end
 
   def maze_solver(maze, start_pos, end_pos)

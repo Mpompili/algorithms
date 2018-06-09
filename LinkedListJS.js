@@ -100,4 +100,15 @@ class LinkedList {
 
         return null;
     }
+
+    toArray() {
+        let nodes = []; 
+        if (!this.head) return nodes; 
+        let currentNode = this.head; 
+        while (currentNode) {
+            nodes.push(currentNode); 
+            currentNode = currentNode.next;
+        }
+        return nodes; 
+    }
 }

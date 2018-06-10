@@ -11,11 +11,11 @@ export default class Stack {
         return !this.linkedList.tail; 
     }
 
-    enqueue(value){
+    push(value){
         this.linkedList.addNode(value); 
     }
 
-    dequeue(){
+    pop(){
         const removedTail = this.linkedList.deleteTail(); 
         return removedTail ? removedTail.value : null; 
     }

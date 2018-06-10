@@ -10,5 +10,23 @@ export default class Queue {
         return !this.linkedList.head; 
     }
 
-    
+    peek(){
+        const head = this.linkedList.head;
+        return head ? head.value : null; 
+    }
+
+    enqueue(value) {
+        this.linkedList.addNode(value); 
+    }
+
+    dequeue() {
+        const node = this.linkedList.deletehead(); 
+        return node ? node.value : null; 
+    }
+
+    toArray() {
+        return this.linkedList.toArray().map(node => node.value); 
+    }
+
+
 }

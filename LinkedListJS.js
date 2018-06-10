@@ -5,16 +5,9 @@
 // adding and deleting nodes (targeted towards beginning or end) is very quick an easy  (O(1)) 
 // searching is stupid slow (O(n)) 
 // You need a LinkedList and LinkedListNode 
+import LinkedListNode from './LinkedListNode'; 
 
-
-class LinkedListNode {
-    constructor(value, next = null) {
-        this.value = value;
-        this.next = next;
-    }
-}
-
-class LinkedList {
+export default class LinkedList {
     constructor() {
         this.head = null;
         this.tail = null; 
@@ -30,6 +23,7 @@ class LinkedList {
             return this; 
         }
 
+        //feel like this needs a if (this.tail && !this.head.next) this.head.next = this.tail 
         this.tail.next = node; 
         this.tail = node; 
 
@@ -71,6 +65,42 @@ class LinkedList {
             this.tail = currentNode; 
         }
             
+        return toBeDeleted; 
+    }
+
+    deletehead() {
+        if (!this.head) return null; 
+
+        let toBeDeleted = this.head; 
+        if (this.head.next){
+            this.head = this.head.next; 
+        }else{ //there is no node after head so reset to nothing
+            this.head = null; 
+            this.tail = null; 
+        }
+
+        return toBeDeleted; 
+    }
+
+    deleteTail() {
+        if (!this.head || !this.tail) return null; 
+        let toBeDeleted = this.tail; 
+        if (this.head === this.tail) {
+            this.head = null; 
+            this.tail = null; 
+
+            return toBeDeleted; 
+        }
+
+        let currentNode = this.head; 
+        while (currentNode) {
+            if (!currentNode.next.next) {
+                currentNode.next = null; 
+            }else{
+                currentNode = currentNode.next;
+            }
+        }
+        this.tail = currentNode; 
         return toBeDeleted; 
     }
 

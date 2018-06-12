@@ -29,15 +29,15 @@ export default class MinHeap {
     // returns the index positions 
 
     leftChild(index) {
-        return this.array[(index * 2) + 1];
+        return (index * 2) + 1;
     }
 
     rightChild(index) {
-        return this.array[(index * 2) + 2];
+        return (index * 2) + 2;
     }
 
     parentOf(index) {
-        return Math.floor(this.array[(index - 1) / 2]); 
+        return Math.floor((index - 1) / 2); 
     }
 
     add(value) {

@@ -20,13 +20,9 @@ def superm(num, num2)
       else 
         carry = 0
       end 
-      p "carry is now #{carry}"
-      p "prdouct is now #{product}"
-      # p 'product ', product
-      # p 'answer[i+j], ', answer[i+j]
+
       answer[i+j] += product
       if answer[i+j] >= 10
-        p "is whats suppose to be added to prev#{answer[i+j]/10}"
         answer[i+j - 1] += answer[i+j] / 10
         answer[i+j] = answer[i+j] % 10
       end 
@@ -37,7 +33,7 @@ def superm(num, num2)
       end 
       j -= 1
     end 
-    p "first mult #{arr1[i]}, current asnwer = #{answer}"
+
     j = arr2.length - 1
     i -= 1
   end 

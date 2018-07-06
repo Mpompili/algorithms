@@ -44,3 +44,41 @@ function is_perm_string(str1, str2) {
     return true;
 }
 
+//1.3 
+//long way 
+function urlify(str) {
+    let arr = str.split(' ');
+    let new_answer = "";
+    for (let i = 0; i < arr.length; i++) {
+        if (i == 0) {
+            new_answer += arr[i];
+        } else {
+            new_answer += ("%20" + arr[i]);
+        }
+    }
+    return new_answer;
+
+}
+//using regex; 
+function urlify2(str) {
+    return str.replace(/ /g, '%20');
+}
+
+urlify2('Mr John Smith');
+
+//1.4 
+
+function is_string_permpal(str) {
+    let counter = {};
+    for (let i = 0; i < str.length; i++) {
+        let ch = str[i];
+        counter[ch] = !counter[ch];
+    };
+    if (str.length % 2 == 0) {
+        return !Object.values(counter).includes(true);
+    } else {
+        return Object.values(counter).filter(bool => bool === true).length == 1;
+    }
+}
+
+is_string_permpal('tacocat');

@@ -27,3 +27,20 @@ function is_unique_2(str) {
 
 
 //1.2
+
+function is_perm_string(str1, str2) {
+    if (str1.length !== str2.length || str1 === str2) return false;
+    let counter = {};
+    counter.default = 0;
+    for (let i = 0; i < str1.length; i++) {
+        counter[str1[i]] += 1;
+    }
+    for (let j = 0; j < str2.length; j++) {
+        counter[str2[j]] -= 1;
+        if (counter[str2[j]] < 0) {
+            return false;
+        }
+    }
+    return true;
+}
+

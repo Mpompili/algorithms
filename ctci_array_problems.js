@@ -82,3 +82,42 @@ function is_string_permpal(str) {
 }
 
 is_string_permpal('tacocat');
+
+
+//1.5 
+
+// //1.5 
+function one_away(str, str2) {
+    if (str.length === str2.length) {
+        return same_length(str, str2);
+    } else {
+        if (![1, -1].includes(str.length - str2.length)) return false;
+        return (str.length < str2.length) ? dif_length(str, str2) : dif_length(str2, str);
+    }
+}
+
+function same_length(str, str2) {
+    let counter = 0;
+    if (str === str2) return false;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] !== str2[i]) {
+            counter += 1;
+            if (counter > 1) return false;
+        }
+    }
+    return true;
+}
+
+function dif_length(str, str2) {
+    let counter = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] !== str2[i + counter]) {
+            counter += 1;
+            if (counter > 1) return false;
+            if (str[i] !== str2[i + counter]) return false;
+        }
+    }
+    return true;
+}
+
+one_away('pale', 'pake')

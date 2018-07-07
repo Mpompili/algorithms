@@ -1,5 +1,5 @@
-// Array 
-//1.1
+// Array Problems 
+//1.1 
 // checks if unique without any additional datastructure 
 function is_unique(str) {
     for (let i = 0; i < str.length; i ++) {

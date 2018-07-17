@@ -161,3 +161,89 @@ class QStack {
 // myQ.dequeue();
 // console.log(myQ);
 // myQ.dequeue(); 
+
+
+//3.5 Sort Stack: sort a stack using only two stacks
+
+class Stack {
+    constructor() {
+        this.stack = []
+    }
+
+    peek() {
+        return this.stack[this.stack.length - 1];
+    }
+
+    pop() {
+        return this.stack.pop();
+    }
+
+    push(val) {
+        this.stack.push(val);
+        return val;
+    }
+
+    isEmpty(depth = 0) {
+        return this.stack.length === depth;
+    }
+}
+
+function sortStack(stack) {
+    let tempStack = new Stack;
+    let depth = 0;
+    let min = Infinity;
+    let first = true;
+    let trueDepth = 0;
+
+    //initial step 
+    // finding min and putting all elements into temp stack
+    while (first || depth !== trueDepth - 1) {
+        while (!stack.isEmpty(depth)) {
+            let popped = stack.pop();
+            if (first) trueDepth++;
+
+            if (popped < min) {
+                if (min !== Infinity) tempStack.push(min);
+                min = popped;
+            } else {
+                tempStack.push(popped);
+            }
+        }
+        //adding min && increase depth 
+        stack.push(min);
+        depth++;
+        first = false;
+        //resetting stack. 
+        while (!tempStack.isEmpty()) {
+            let popped = tempStack.pop();
+            stack.push(popped);
+        }
+
+        min = Infinity;
+    }
+
+    while (!stack.isEmpty()) {
+        tempStack.push(stack.pop());
+    }
+
+    return tempStack;
+}
+
+let stck = new Stack;
+stck.push(5);
+stck.push(6);
+stck.push(3);
+stck.push(8);
+stck.push(1);
+stck.push(9);
+stck.push(11);
+
+sortStack(stck);
+
+
+
+
+
+
+
+

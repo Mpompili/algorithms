@@ -247,3 +247,4 @@ sortStack(stck);
 
 
 
+3

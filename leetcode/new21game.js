@@ -22,7 +22,7 @@ var new21Game = function (N, K, W) {
  // the probability of any position is as follows:
  //  (1/W) * arr[i + 1] + arr[i + 2] +... arr[i + w]... you have 1/W chance of each of the points to draw..
  //if ^ is hard to understand think of it as..
- // (arr[i + 1] / W) + (arr[i + 2] / W) + ... (arr[i + W] / W)
+ // (arr[i + 1]     / W) + (arr[i + 2] / W) + ... (arr[i + W] / W)
 
  // now the magic... if we hare looking for the arr[i - 1] position...it should be the probability of 
  // arr[i] WITHOUT arr[i + W] because for arr[i - 1] it's highest roll possible is arr[i + W - 1]...

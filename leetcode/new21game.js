@@ -17,8 +17,6 @@ var new21Game = function (N, K, W) {
     return arr[0];
 };
 
-
-
  //where it gets tricky....
  //
  // the probability of any position is as follows:

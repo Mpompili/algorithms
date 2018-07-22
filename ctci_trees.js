@@ -47,3 +47,45 @@ function traverse(start, target, visited) {
 // const A = new Node('a', [C, D]);
 
 // routeBetweeen(D, B);
+
+
+//4.2 
+// sorted raray with unique elements, write an algo to create a binary search tree with min hieght 
+class Node {
+    constructor(val) {
+        this.val = val;
+    }
+}
+
+
+let array = [1, 2, 3, 4, 5, 6, 7];
+
+// [ 1, 2, 3, 4, 5, 6, 7];
+//   0  1  2  3
+//   0     2
+//   
+//           4
+//      2         6 
+//   1     3   5     7
+function createBTree(arr) {
+    return completeIt(arr, 0, arr.length - 1);
+}
+
+function completeIt(arr, start, end) {
+    // always can find the middle easy; 
+    // if end pos is less than start, break; 
+    if (end < start) return;
+
+    let mid = Math.floor((start + end) / 2);
+    let node = new Node(arr[mid]);
+
+    // if the end is less than start we are at one of the ends 
+
+    node.left = completeIt(arr, start, mid - 1);
+    node.right = completeIt(arr, mid + 1, end);
+
+    return node;
+}
+
+
+createBTree(array);

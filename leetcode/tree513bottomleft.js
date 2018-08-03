@@ -12,6 +12,6 @@ var findBottomLeftValue = function (root) {
         if (lastnode.right) queue.push(lastnode.right);
         if (lastnode.left) queue.push(lastnode.left);
     }
-    return lastnode.val
+    return lastnode.val;
 
 };

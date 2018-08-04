@@ -41,7 +41,7 @@
     -- if !curent[character] return -1 
     - else current = current[character]
 - if we make it through the entire loop we can simply return
-- current.val as we have stored the "weighted" value at each given pairing. 
+- current.val as we have stored the "weighted" value at each given pairing. 3
 
  */
 var WordFilter = function (words) {

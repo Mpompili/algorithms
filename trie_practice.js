@@ -97,6 +97,18 @@ test.remove('homo');
 // test.trie
 // test.remove('homo');
 
+/*
+// ASIDE 
+    // when a constructor has local variables that are not attributes 
+    of the instance (ie: attributes are "this.something") they are 
+    "private local variables". Defining functions inside the constructor 
+    makes sense when those private local variables need to be referenced.
+     On almost any other circumstance defining instance methods are most 
+     efficient by defining on the Object's Prototype - Saves tons of memory 
+     with slightly reduction in speed, especially so if the prototype 
+     hierarchal chain is super long. If using private local variables a 
+     mix of the two would be optimal.
+*/
 
 
 
@@ -106,40 +118,5 @@ test.remove('homo');
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function createTrie(word, trie = {}) {
-//   let char = word.slice(0,1);
-//   word = word.slice(1); 
-//   let current = trie; 
-//   while (char.length > 0) {
-//     if (current[char] === undefined) {
-//       current[char] = {};
-//     } 
-//     current = current[char]; 
-//     char = word.slice(0,1); 
-//     word = word.slice(1); 
-//   }
-//   current['end'] = true;
-//   // console.log('current: ', current, ' char: ', char); 
-//   return trie; 
-// }
-
-// let ret = createTrie('hello');
-// ret = createTrie('help', ret);
-
-// function s
 
 

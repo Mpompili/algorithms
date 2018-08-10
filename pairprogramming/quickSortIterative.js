@@ -1,14 +1,19 @@
 function quickSortIt(arr) {
+    /*
+        segment out left pivot right as usual, 
+        push all parts into a stack (right, pivot, left) order 
+        pop from stack, evaluate if popped arr has lenght > 1
+            if so, use segmenting helper function on that part and push pieces in same order into stack .
+    */ 
   let stack = [];
-  let answer = []; 
-  // let first = lrc(arr); 
+  let answer = [];  
   let [left, pivot, right] = lrc(arr); 
 
   stack.push(right, pivot, left);  
   while (stack.length !== 0) {
     let top = stack.pop();
     if (top.length > 1) {
-      [left, pivot, right] = lrc(top); // must use let here again 
+      [left, pivot, right] = lrc(top); 
       stack.push(right, pivot, left); 
     } else {
       answer.push(...top); 
@@ -29,40 +34,3 @@ function lrc(arr) {
 
 
 quickSortIt([7,5,3,2,9, 9, 11, 1, 42, 31, 26, 38]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function wellformed(str) {
-//   left = [];
-
-//   check = {
-//     '}': '{',
-//     ']': '[',
-//     ')': '('
-//   };
-
-//   for (let i = 0; i < str.length; i++) {
-//     if (!check[str[i]]) {
-//       left.push(str[i]);
-//     } else if (isEmpty(left) || check[str[i]] !== left.pop()) { return false; 
-//     }
-//   }
-
-//   return left.length === 0; 
-// }
-
-// wellformed('{[([])]}');
-
-// function isEmpty(arr) {
-//   return arr.length === 0;
-// }
